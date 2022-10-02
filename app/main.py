@@ -1,17 +1,18 @@
 # ----------------------------------------------------------------------------------------
 # need this for vs code to find sibling and child directories
 # ----------------------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------------------
-# need this for vs code to find sibling and child directories
-# ----------------------------------------------------------------------------------------
+import multiprocessing
 import sys
+import logging
+from services.queue_demo1 import queue_demo1
+#from services.multi_demo1 import multi_demo1
+#from services.logging_demo1 import logging_demo1
+
 sys.path.append("./")
 
 # ----------------------------------------------------------------------------------------
 # other misc app related logging imports
 # ----------------------------------------------------------------------------------------
-import logging
 from   logging_utils import logging_config
 from   database_utils import sqllite_demo
 
@@ -35,15 +36,13 @@ def test_logging_by_level(msg):
 # ----------------------------------------------------------------------------------------
 # main process to execute 
 # ----------------------------------------------------------------------------------------
-try:
-  
-  test_logging_by_level("hello")
+if __name__ == '__main__':
+    try:
+        print("Number of cpu : ", multiprocessing.cpu_count())
+        queue_demo1()
 
-  logger.info(sqllite_demo.get_db_version())
-
-
-except Exception as ex:
-    print("Error while executing applicaiton", ex)
-    logger.exception("error trapped by main:{}".format(ex))
+    except Exception as ex:
+        print("Error while executing applicaiton", ex)
+        logger.exception("error trapped by main:{}".format(ex))
 
 
