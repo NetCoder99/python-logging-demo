@@ -2,36 +2,40 @@ from multiprocessing import Process
 import multiprocessing
 import random
 import time
-#from datetime import datetime
-
+import logging
 from services.queue_procs import PrintQueueRecord
 
-messageQueueGlbl  = multiprocessing.Queue()
+logger = logging.getLogger("app_logger")
+messageQueuePrint  = multiprocessing.Queue()
 
 # ----------------------------------------------------------------------------
 # a child process that is run in parallel, need this as pre-req for the 
 # parallel processing syntax in python 
 # ----------------------------------------------------------------------------
 def PrintCountryName(messageQueue: multiprocessing.Queue, continent:str='Asia', sleep_amt = .1):
-    print('\nFrom Printer : {} : {}'.format(sleep_amt, continent), end='')
+    #logger.info('From Printer : {:10} : {}'.format(continent, sleep_amt))
+    #print('\nFrom Printer : {:10} : {}'.format(continent, sleep_amt), end='')
+    logger.info('PrintCountryName : {:10} : {}'.format(continent, sleep_amt))
     time.sleep(sleep_amt)
     messageQueue.put(continent)
 
 # =============================================================================
-# this is the 'main' process, iterate over the objects process parallel???
+# this is the 'main' process, iterate over the objects, process in parallel???
 # =============================================================================
 def queue_demo1():
-    names = ['America', 'Europe', 'Africa', "Rusia", "Japan", "China", "Italy"]
+    logger.info("+++ queue_demo - started")
+
+    names = ['America', 'Europe', 'Africa', "Japan", "China", "Italy"]
     procs = []
 
-    printFunction = Process(target=PrintQueueRecord, args=(messageQueueGlbl,))
+    printFunction = Process(target=PrintQueueRecord, args=(messageQueuePrint,))
     printFunction.start()
 
     # instantiating process with arguments
     print("+++ Instantiating processes")
     for name in names:
-        wait_period = random.randint(1, 9)
-        proc1 = Process(target=PrintCountryName, args=(messageQueueGlbl, name, wait_period))
+        wait_period = random.randint(1, 5)
+        proc1 = Process(target=PrintCountryName, args=(messageQueuePrint, name, wait_period))
         procs.append(proc1)
 
     # start all the threads
@@ -48,7 +52,7 @@ def queue_demo1():
 
     # signal the quest handler to quit
     print("+++ Killing message queue processer")
-    messageQueueGlbl.put(None)
+    messageQueuePrint.put(None)
 
     # wait for the queue handler to finish
     printFunction.join()
