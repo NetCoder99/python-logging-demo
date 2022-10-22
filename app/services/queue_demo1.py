@@ -14,7 +14,6 @@ loggingQueuePrint  = multiprocessing.Queue()
 # ----------------------------------------------------------------------------
 def PrintCountryName(loggingQueue: multiprocessing.Queue, continent:str='Asia', sleep_amt = .1):
     logString='PrintCountryName : {:10} : {}'.format(continent, sleep_amt)
-    #logger.info('PrintCountryName : {:10} : {}'.format(continent, sleep_amt))
     time.sleep(sleep_amt)
     loggingQueue.put(logString)
 
@@ -22,7 +21,11 @@ def PrintCountryName(loggingQueue: multiprocessing.Queue, continent:str='Asia', 
 # this is the 'main' process, iterate over the objects, process in parallel???
 # =============================================================================
 def queue_demo1():
-    logger.info("--- queue_demo - started")
+    
+    logger.info  ("--- queue_demo - started")
+    logger.debug ("--- queue_demo - started - debug")
+    logger.warn  ("--- queue_demo - started - warn")
+    logger.error ("--- queue_demo - started - error")
 
     names = ['America', 'Europe', 'Africa', "Japan", "China", "Italy"]
     procs = []
