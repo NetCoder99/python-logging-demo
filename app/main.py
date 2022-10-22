@@ -3,19 +3,20 @@
 # ----------------------------------------------------------------------------------------
 import multiprocessing
 import logging
-from services.queue_demo1 import queue_demo1
 from datetime import datetime
 
 # ----------------------------------------------------------------------------------------
 # other misc app related logging imports
 # ----------------------------------------------------------------------------------------
+from services.queue_demo1 import queue_demo1
 from   logging_utils  import logging_config
 from   database_utils import sqllite_demo
 
 # ----------------------------------------------------------------------------------------
 # configure the basic logging handlers, formatting, etc
 # ----------------------------------------------------------------------------------------
-fileName = "test_0001"
+now = datetime.now()
+fileName = "log_{}".format(now.strftime("%Y%m%d_%H%M"))
 logging_config.config(fileName)
 logger = logging.getLogger("app_logger")
 logger.setLevel(logging.DEBUG)
@@ -24,8 +25,6 @@ logger.setLevel(logging.DEBUG)
 # main process to execute 
 # ----------------------------------------------------------------------------------------
 if __name__ == '__main__':
-    #logging_config.config("test_0002")
-
     try:
         now = datetime.now()
         date_time_str = now.strftime("%Y%m%d_%H%M%S")

@@ -3,7 +3,7 @@ import multiprocessing
 import random
 import time
 import logging
-from services.queue_procs import PrintQueueRecord
+from services.queue_procs import LogQueueRecord
 
 logger = logging.getLogger("app_logger")
 loggingQueuePrint  = multiprocessing.Queue()
@@ -27,8 +27,9 @@ def queue_demo1():
     names = ['America', 'Europe', 'Africa', "Japan", "China", "Italy"]
     procs = []
 
-    printFunction = Process(target=PrintQueueRecord, args=(loggingQueuePrint,))
-    printFunction.start()
+    # this is singleton thread that executes the logging function 
+    logFunction = Process(target=LogQueueRecord, args=(loggingQueuePrint,))
+    logFunction.start()
 
     # instantiating process with arguments
     logger.info("--- Instantiating processes")
@@ -57,5 +58,5 @@ def queue_demo1():
     loggingQueuePrint.put(None)
 
     # wait for the queue handler to finish
-    printFunction.join()
+    logFunction.join()
     logger.info("--- All processing complete")

@@ -7,9 +7,9 @@ import logging
 logger = logging.getLogger("app_logger")
 
 # ----------------------------------------------------------------------------
-# this is the thread that reads from the queue and prints the 'queued' messages 
+# this is the thread that reads from the queue and logs the 'queued' messages 
 # ----------------------------------------------------------------------------
-def PrintQueueRecord(messageQueue: multiprocessing.Queue):
+def LogQueueRecord(messageQueue: multiprocessing.Queue):
     while True:
         try:
             record = messageQueue.get()
