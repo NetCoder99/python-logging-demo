@@ -1,6 +1,5 @@
 import logging
 import sqlite3
-import pandas as pd
 from   models.logging_models import dbLogRecord
 
 class sqlite_db_handler(logging.Handler):
@@ -15,10 +14,13 @@ class sqlite_db_handler(logging.Handler):
         conn.commit()
         conn.close()
 
-    def emit(self, record):
+    def emit(self, record: logging.LogRecord):
         logRec = dbLogRecord(record)
         insert_sql = 'INSERT INTO logs(name,msg,levelname,asctime,relativeCreated,thread,threadName,funcName,filename) ' + \
             'VALUES (' + logRec.toCsv() + ');'
+
+        print('insert_sql: {}'.format(insert_sql))    
+        
         conn = sqlite3.connect(self.database)
         conn.execute(insert_sql)
         conn.commit()

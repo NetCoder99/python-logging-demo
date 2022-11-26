@@ -1,8 +1,7 @@
 from datetime import datetime
 import logging
-from   logging_utils.logging_sqlite import sqlite_db_handler
-
-from logging_utils.logging_handler import get_file_handler, get_console_handler
+from   logging_utils.logging_sqlite  import sqlite_db_handler
+from   logging_utils.logging_handler import get_file_handler, get_console_handler
 
 now = datetime.now()
 date_time_str = now.strftime("%Y%m%d_%H")

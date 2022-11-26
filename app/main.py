@@ -4,6 +4,7 @@
 import multiprocessing
 import logging
 from   datetime import datetime
+from   customer_utils.customer_utils import customer_demo
 
 # ----------------------------------------------------------------------------------------
 # other misc app related logging imports
@@ -15,7 +16,6 @@ from logging_utils        import logging_config
 # configure the basic logging handlers, formatting, etc
 # ----------------------------------------------------------------------------------------
 now = datetime.now()
-#fileName = "log_{}".format(now.strftime("%Y%m%d_%H%M"))
 fileName = "log_{}".format(now.strftime("%Y%m%d"))
 logging_config.config(fileName, logging.DEBUG)
 logger = logging.getLogger("app_logger")
@@ -31,7 +31,8 @@ if __name__ == '__main__':
 
         logger.info("+++ main: started  +++")
         logger.info("+++ Number of cpu: {}".format(multiprocessing.cpu_count()))
-        queue_demo1()
+        #queue_demo1()
+        customer_demo()
         logger.info("+++ main: finished +++")
         logger.info("===============================================")
 

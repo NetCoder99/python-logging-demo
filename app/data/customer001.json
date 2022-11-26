@@ -1,0 +1,11 @@
+{
+    "customer_id"    : 1,
+    "first_name"     : "Daffy",
+    "last_name"      : "Duck",
+    "address_line_1" : "7252 Carson Ave.",
+    "address_line_2" : "",
+    "address_city"   : "Deerfield Beach",
+    "address_state"  : "FL",
+    "address_zipcode": "33442"
+  }
+  

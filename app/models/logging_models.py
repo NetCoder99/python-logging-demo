@@ -1,3 +1,6 @@
+import json
+
+
 class dbLogRecord:
     name: str       = None
     msg: str        = None
@@ -34,6 +37,39 @@ class dbLogRecord:
         )
 
     def toCsv(self):
+        print('\nself.msg:{}\n\n'.format(self.msg))
+        try:
+            json.loads(self.msg)
+        except ValueError as err:
+            return self.msgAsString()
+        return self.msgAsJson()
+
+        # return '"{}","{}","{}","{}","{}","{}","{}","{}","{}"'.format(
+        #     self.name, 
+        #     self.msg, 
+        #     self.levelname, 
+        #     self.asctime, 
+        #     self.relativeCreated, 
+        #     self.thread, 
+        #     self.threadName,
+        #     self.funcName,
+        #     self.filename
+        # )
+
+    def msgAsJson(self):
+        return "'{}",'{}',"{}","{}","{}","{}","{}","{}","{}'".format(
+            self.name, 
+            self.msg, 
+            self.levelname, 
+            self.asctime, 
+            self.relativeCreated, 
+            self.thread, 
+            self.threadName,
+            self.funcName,
+            self.filename
+        )
+
+    def msgAsString(self):
         return '"{}","{}","{}","{}","{}","{}","{}","{}","{}"'.format(
             self.name, 
             self.msg, 
